@@ -17,7 +17,7 @@ class ToDoItem extends  React.Component{
                     </div>
                 </li>*/
         return(
-            <li>
+            <li key={this.props.index} className={this.state.indexList.includes(this.props.index)?'completed':null}>
                 <input className='toggle' type='checkbox' onClick={this.handleInputClick.bind(this,this.props.index)}/>
                 <label>{this.props.content}</label>
                 <button  className='destroy' onClick={this.handleDelete.bind(this)}></button>
