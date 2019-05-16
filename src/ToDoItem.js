@@ -3,23 +3,22 @@ import './index.css';
 
 class ToDoItem extends  React.Component{
     handleDelete(){
-        this.props.handleDelete(this.props.index);
+        this.props.handleDelete();
     }
-    handleInputClick(index,date){
-        this.props.handleInputClick(this.props.data);
+    handleInputClick(e){
+        this.props.handleInputClick(e.target.checked);
     }
     render(){
-        /* return<li key={index} className={this.state.indexList.includes(index)?'completed':null}>
-                    <div className='view'>
-                        <input className='toggle' type='checkbox' onClick={this.handleInputClick.bind(this,index)}/>
-                        <label>{item}</label>
-                        <button  className='destroy' onClick={this.handleItemClick.bind(this,index)}></button>
-                    </div>
-                </li>*/
-        return(
-            <li key={this.props.index} className={this.state.indexList.includes(this.props.index)?'completed':null}>
-                <input className='toggle' type='checkbox' onClick={this.handleInputClick.bind(this,this.props.index)}/>
-                <label>{this.props.content}</label>
+        console.log(this.props.content);
+        return (
+            <li key={this.props.index} className={this.props.content.active === false?'completed':null}>
+                <input
+                    checked={this.props.content.checked}
+                    className='toggle'
+                    type='checkbox'
+                    onChange={this.handleInputClick.bind(this)}
+                />
+                <label>{this.props.content.name}</label>
                 <button  className='destroy' onClick={this.handleDelete.bind(this)}></button>
             </li>
         );

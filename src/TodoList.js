@@ -11,7 +11,6 @@ class TodoList extends  React.Component{
             list:[],
             inputValue:'',
             className:'',
-            indexList:[]
         }
         this.handleInputChange  = this.handleInputChange.bind(this);
         this.handleInputKeyDown = this.handleInputKeyDown.bind(this);
@@ -20,7 +19,11 @@ class TodoList extends  React.Component{
     }
     handleBtnClick(){
         this.setState({
-            list:[...this.state.list,this.state.inputValue],
+            list: [...this.state.list, {
+                name: this.state.inputValue,
+                active: true,
+                checked: false,
+            }],
             inputValue:''
         })
     }
@@ -41,40 +44,27 @@ class TodoList extends  React.Component{
             list:list
         })
     }
-    handleInputClick(data){
-        console.log(data)
-        let indexList = [...this.state.indexList];
-        let index=0;
-        if(indexList.includes(data)){
-            index = indexList.findIndex(item => item ===data);
-            indexList.splice(index,1);
-        }else{
-            indexList.push(data);
-        }
+    handleInputClick(isChecked, index){
+        let list = [...this.state.list];
+        list[index].active = !list[0].active;
+        list[index].checked = isChecked;
+        
         this.setState({
-            indexList:indexList
+            list: list
         })
-        console.log(indexList)
     }
     getTodoItems(){
         return(
             this.state.list.map((item,index)=>{
                 return (
                     <ToDoItem
-                        handleDelete={this.handleDelete}
-                        handleInputClick={this.handleInputClick.bind(this,index)}
+                        handleDelete={this.handleDelete.bind(this, index)}
+                        handleInputClick={(isChecked) => this.handleInputClick(isChecked, index)}
                         key={index}
                         content={item}
                         index={index}
                     />
                 );
-                /* return<li key={index} className={this.state.indexList.includes(index)?'completed':null}>
-                     <div className='view'>
-                         <input className='toggle' type='checkbox' onClick={this.handleInputClick.bind(this,index)}/>
-                         <label>{item}</label>
-                         <button  className='destroy' onClick={this.handleItemClick.bind(this,index)}></button>
-                     </div>
-                 </li>*/
             })
         )
     }
