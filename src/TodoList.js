@@ -61,20 +61,13 @@ class TodoList extends  React.Component{
             this.state.list.map((item,index)=>{
                 return (
                     <ToDoItem
-                        handleDelete={this.handleDelete}
-                        handleInputClick={this.handleInputClick.bind(this,index)}
+                        handleDelete={this.handleDelete.bind(this, index)}
+                        handleInputClick={this.handleInputClick.bind(this,item)}
                         key={index}
                         content={item}
                         index={index}
                     />
                 );
-                /* return<li key={index} className={this.state.indexList.includes(index)?'completed':null}>
-                     <div className='view'>
-                         <input className='toggle' type='checkbox' onClick={this.handleInputClick.bind(this,index)}/>
-                         <label>{item}</label>
-                         <button  className='destroy' onClick={this.handleItemClick.bind(this,index)}></button>
-                     </div>
-                 </li>*/
             })
         )
     }
@@ -83,8 +76,13 @@ class TodoList extends  React.Component{
         return(
             <div className='todoapp'>
                 <div className='header'>
-                    <input className="new-todo" value={this.state.inputValue} onKeyDown={this.handleInputKeyDown} onChange={this.handleInputChange} placeholder="What needs to be done?"/>
-                   <button className='add-btn' onClick={this.handleBtnClick}>add</button>
+                    <input 
+                        className="new-todo" 
+                        value={this.state.inputValue} 
+                        onKeyDown={this.handleInputKeyDown} 
+                        onChange={this.handleInputChange} 
+                        placeholder="What needs to be done?"/>
+                    <button className='add-btn' onClick={this.handleBtnClick}>add</button>
                 </div>
                 <div className='main'>
                     <input id="toggle-all" className="toggle-all" type="checkbox" />
