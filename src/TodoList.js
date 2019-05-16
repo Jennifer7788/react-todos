@@ -46,9 +46,9 @@ class TodoList extends  React.Component{
     }
     handleInputClick(isChecked, index){
         let list = [...this.state.list];
-        list[index].active = !list[0].active;
+        list[index].active = !list[index].active;
         list[index].checked = isChecked;
-        
+
         this.setState({
             list: list
         })
